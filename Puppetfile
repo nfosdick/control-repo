@@ -142,3 +142,7 @@ mod 'selinux',
 mod 'shibboleth',
     :git => 'https://github.com/LarkIT/puppet-shibboleth.git',
     :ref => 'testshib' # no release yet
+
+mod 'roles'
+    :git => 'https://github.com/nfosdick/roles.git',
+    :ref => 'master'
