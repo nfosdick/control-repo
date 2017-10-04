@@ -142,6 +142,10 @@ mod 'shibboleth',
     :git => 'https://github.com/LarkIT/puppet-shibboleth.git',
     :ref => 'testshib' # no release yet
 
-mod 'roles',
-    :git => 'https://github.com/nfosdick/roles.git',
+mod 'role',
+    :git => 'https://github.com/nfosdick/role.git',
+    :ref => 'master'
+
+mod 'profile',
+    :git => 'https://github.com/nfosdick/profile.git',
     :ref => 'master'
