@@ -46,7 +46,6 @@ mod 'echoes/monit', '0.4.0'
 mod 'puppet/letsencrypt', '1.1.0'
 mod 'petems-swap_file', '3.1.4'
 mod 'maestrodev/rvm', '1.13.1'
-mod 'puppetlabs-postgresql', '4.9.0'
 mod 'golja-gnupg', '1.2.3'
 
 # Added for gitlab
