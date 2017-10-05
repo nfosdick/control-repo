@@ -149,3 +149,7 @@ mod 'role',
 mod 'profile',
     :git => 'https://github.com/nfosdick/profile.git',
     :ref => 'master'
+
+mod 'host_railsapp',
+    :git => 'https://github.com/nfosdick/host_railsapp.git',
+    :ref => 'master'
