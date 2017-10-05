@@ -1,0 +1,458 @@
+---
+r10k::sources:
+  puppet:
+    basedir: /etc/puppetlabs/code/environments
+    remote: git@red-gitlab-01.red.lan:puppet/control-repo
+r10k::webhook::config::enable_ssl: false
+r10k::webhook::config::use_mcollective: false
+r10k::postrun: ['/sbin/restorecon -Fr /etc/puppetlabs/code/environments']
+
+# Hiera config is in common.yaml and should stay there
+
+puppetdb::disable_ssl: true
+puppetdb::puppetdb_disable_ssl: true
+puppetdb::manage_firewall: false
+
+profile::foreman::git_webhook_config:
+  'git_post_receive_hook':
+    webhook_url: "http://puppet:puppet@%{::fqdn}:8088/payload"
+    token: 'eNpLgjZrPmShxYes9sVh'
+    project_name: 'puppet/control-repo'
+    server_url: 'https://red-gitlab-01.red.lan/'
+    disable_ssl_verify: true
+    provider: 'gitlab'
+#foreman::admin_password: 'admin'
+
+# Foreman Tuning (from foreman-installer data/tuning.yaml)
+apache::mod::passenger::passenger_max_pool_size: 12
+apache::mod::passenger::passenger_max_instances_per_app: 6
+apache::mod::passenger::passenger_max_request_queue_size: 250
+apache::mod::passenger::passenger_stat_throttle_rate: 120
+apache::mod::passenger::passenger_max_requests: 10000
+
+# Custom (from foreman-installer data/custom.yaml)
+apache::trace_enable: Off
+
+# RedHat specific option (from foreman-installer data/RedHat.yaml)
+# Disable additional Phusion Passenger repo on EL, preferring EPEL/Foreman's
+apache::mod::passenger::manage_repo: false
+
+# THE BIG BAD DATA DUMP (from foreman-installer data/kafo-answers.yaml)
+# foreman-installer --enable-foreman-compute-ec2 --enable-foreman-plugin-default-hostgroup
+foreman::foreman_url: https://%{::fqdn}
+foreman::puppetrun: false
+foreman::unattended: true
+foreman::authentication: true
+foreman::passenger: true
+foreman::passenger_ruby: /usr/bin/tfm-ruby
+foreman::passenger_ruby_package: tfm-rubygem-passenger-native
+foreman::plugin_prefix: tfm-rubygem-foreman_
+foreman::use_vhost: true
+foreman::servername: "%{::fqdn}"
+foreman::serveraliases:
+- foreman
+foreman::ssl: true
+foreman::custom_repo: false
+foreman::repo: stable
+foreman::configure_epel_repo: true
+foreman::configure_scl_repo: true
+foreman::selinux:
+foreman::gpgcheck: true
+foreman::version: present
+foreman::plugin_version: present
+foreman::db_manage: true
+foreman::db_type: postgresql
+foreman::db_adapter:
+foreman::db_host:
+foreman::db_port:
+foreman::db_database:
+foreman::db_username: foreman
+foreman::db_password: 63SkmLGV8KkxdK3hdhmU5B9yUhoWGJMs
+foreman::db_sslmode:
+foreman::db_pool: 5
+foreman::db_manage_rake: true
+foreman::app_root: /usr/share/foreman
+foreman::manage_user: true
+foreman::user: foreman
+foreman::group: foreman
+foreman::user_groups:
+- puppet
+foreman::rails_env: production
+foreman::puppet_home: /var/lib/puppet
+foreman::puppet_ssldir: /etc/puppetlabs/puppet/ssl
+foreman::locations_enabled: false
+foreman::organizations_enabled: false
+foreman::passenger_interface:
+foreman::vhost_priority: '05'
+foreman::server_port: 80
+foreman::server_ssl_port: 443
+foreman::server_ssl_ca: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+foreman::server_ssl_chain: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+foreman::server_ssl_cert: /etc/puppetlabs/puppet/ssl/certs/%{::fqdn}.pem
+foreman::server_ssl_certs_dir: ''
+foreman::server_ssl_key: /etc/puppetlabs/puppet/ssl/private_keys/%{::fqdn}.pem
+foreman::server_ssl_crl: /etc/puppetlabs/puppet/ssl/crl.pem
+foreman::client_ssl_ca: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+foreman::client_ssl_cert: /etc/puppetlabs/puppet/ssl/certs/%{::fqdn}.pem
+foreman::client_ssl_key: /etc/puppetlabs/puppet/ssl/private_keys/%{::fqdn}.pem
+foreman::keepalive: true
+foreman::max_keepalive_requests: 100
+foreman::keepalive_timeout: 5
+foreman::oauth_active: true
+foreman::oauth_map_users: false
+foreman::oauth_consumer_key: PU5Lg2ua7XUQ2SvVVXMwSLzrauYLjQEc
+foreman::oauth_consumer_secret: qxsXYEq99MQAmTUpg6m43JSCpwd2p7Jy
+foreman::passenger_prestart: true
+foreman::passenger_min_instances: 1
+foreman::passenger_start_timeout: 600
+foreman::admin_username: admin
+foreman::admin_password: Ttgqzp5z5VSbo9KK
+foreman::admin_first_name: Lark IT
+foreman::admin_last_name: DevOps
+foreman::admin_email: lark-systems@lark-it.com
+foreman::initial_organization:
+foreman::initial_location:
+foreman::ipa_authentication: false
+foreman::http_keytab: /etc/httpd/conf/http.keytab
+foreman::pam_service: foreman
+foreman::ipa_manage_sssd: true
+foreman::websockets_encrypt: true
+foreman::websockets_ssl_key: /etc/puppetlabs/puppet/ssl/private_keys/%{::fqdn}.pem
+foreman::websockets_ssl_cert: /etc/puppetlabs/puppet/ssl/certs/%{::fqdn}.pem
+foreman::logging_level: info
+foreman::loggers: {}
+foreman::email_config_method: database
+foreman::email_conf: email.yaml
+foreman::email_source: email.yaml.erb
+foreman::email_delivery_method:
+foreman::email_smtp_address:
+foreman::email_smtp_port: 25
+foreman::email_smtp_domain:
+foreman::email_smtp_authentication: none
+foreman::email_smtp_user_name:
+foreman::email_smtp_password:
+foreman::cli::foreman_url:
+foreman::cli::version: installed
+foreman::cli::manage_root_config: true
+foreman::cli::username:
+foreman::cli::password:
+foreman::cli::refresh_cache: false
+foreman::cli::request_timeout: 120
+foreman::cli::ssl_ca_file:
+foreman::cli::hammer_plugin_prefix: tfm-rubygem-hammer_cli_
+foreman_proxy::repo: stable
+foreman_proxy::gpgcheck: true
+foreman_proxy::custom_repo: false
+foreman_proxy::version: present
+foreman_proxy::ensure_packages_version: present
+foreman_proxy::plugin_version: installed
+foreman_proxy::bind_host:
+- '*'
+foreman_proxy::http_port: 8000
+foreman_proxy::ssl_port: 8443
+foreman_proxy::dir: /usr/share/foreman-proxy
+foreman_proxy::user: foreman-proxy
+foreman_proxy::groups: []
+foreman_proxy::log: /var/log/foreman-proxy/proxy.log
+foreman_proxy::log_level: INFO
+foreman_proxy::log_buffer: 2000
+foreman_proxy::log_buffer_errors: 1000
+foreman_proxy::http: false
+foreman_proxy::ssl: true
+foreman_proxy::ssl_ca: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+foreman_proxy::ssl_cert: /etc/puppetlabs/puppet/ssl/certs/%{::fqdn}.pem
+foreman_proxy::ssl_key: /etc/puppetlabs/puppet/ssl/private_keys/%{::fqdn}.pem
+foreman_proxy::foreman_ssl_ca:
+foreman_proxy::foreman_ssl_cert:
+foreman_proxy::foreman_ssl_key:
+foreman_proxy::trusted_hosts:
+- "%{::fqdn}"
+foreman_proxy::ssl_disabled_ciphers: []
+foreman_proxy::manage_sudoersd: false
+foreman_proxy::use_sudoersd: true
+foreman_proxy::use_sudoers: true
+foreman_proxy::puppetca: true
+foreman_proxy::puppetca_listen_on: https
+foreman_proxy::ssldir: /etc/puppetlabs/puppet/ssl
+foreman_proxy::puppetdir: /etc/puppetlabs/puppet
+foreman_proxy::puppetca_cmd: /opt/puppetlabs/bin/puppet cert
+foreman_proxy::puppet_group: puppet
+foreman_proxy::manage_puppet_group: true
+foreman_proxy::puppet: true
+foreman_proxy::puppet_listen_on: https
+foreman_proxy::puppetrun_cmd: /opt/puppetlabs/bin/puppet kick
+foreman_proxy::puppetrun_provider:
+foreman_proxy::customrun_cmd: /bin/false
+foreman_proxy::customrun_args: -ay -f -s
+foreman_proxy::mcollective_user: root
+foreman_proxy::puppetssh_sudo: false
+foreman_proxy::puppetssh_command: /opt/puppetlabs/bin/puppet agent --onetime --no-usecacheonfailure
+foreman_proxy::puppetssh_user: root
+foreman_proxy::puppetssh_keyfile: /etc/foreman-proxy/id_rsa
+foreman_proxy::puppetssh_wait: false
+foreman_proxy::salt_puppetrun_cmd: puppet.run
+foreman_proxy::puppet_user: root
+foreman_proxy::puppet_url: https://%{::fqdn}:8140
+foreman_proxy::puppet_ssl_ca: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+foreman_proxy::puppet_ssl_cert: /etc/puppetlabs/puppet/ssl/certs/%{::fqdn}.pem
+foreman_proxy::puppet_ssl_key: /etc/puppetlabs/puppet/ssl/private_keys/%{::fqdn}.pem
+foreman_proxy::puppet_use_environment_api:
+foreman_proxy::puppet_api_timeout: 30
+foreman_proxy::templates: false
+foreman_proxy::templates_listen_on: both
+foreman_proxy::template_url: http://%{::fqdn}:8000
+foreman_proxy::logs: true
+foreman_proxy::logs_listen_on: https
+foreman_proxy::tftp: true
+foreman_proxy::tftp_listen_on: https
+foreman_proxy::tftp_managed: true
+foreman_proxy::tftp_manage_wget: true
+foreman_proxy::tftp_syslinux_filenames:
+- /usr/share/syslinux/chain.c32
+- /usr/share/syslinux/mboot.c32
+- /usr/share/syslinux/menu.c32
+- /usr/share/syslinux/memdisk
+- /usr/share/syslinux/pxelinux.0
+foreman_proxy::tftp_root: /var/lib/tftpboot
+foreman_proxy::tftp_dirs:
+- /var/lib/tftpboot/pxelinux.cfg
+- /var/lib/tftpboot/grub
+- /var/lib/tftpboot/grub2
+- /var/lib/tftpboot/boot
+- /var/lib/tftpboot/ztp.cfg
+- /var/lib/tftpboot/poap.cfg
+foreman_proxy::tftp_servername:
+foreman_proxy::dhcp: false
+foreman_proxy::dhcp_listen_on: https
+foreman_proxy::dhcp_managed: true
+foreman_proxy::dhcp_provider: isc
+foreman_proxy::dhcp_subnets: []
+foreman_proxy::dhcp_option_domain:
+- red.lan
+foreman_proxy::dhcp_search_domains:
+foreman_proxy::dhcp_interface: eth0
+foreman_proxy::dhcp_gateway: 192.168.100.1
+foreman_proxy::dhcp_range:
+foreman_proxy::dhcp_pxeserver:
+foreman_proxy::dhcp_nameservers: default
+foreman_proxy::dhcp_server: 127.0.0.1
+foreman_proxy::dhcp_config: /etc/dhcp/dhcpd.conf
+foreman_proxy::dhcp_leases: /var/lib/dhcpd/dhcpd.leases
+foreman_proxy::dhcp_key_name:
+foreman_proxy::dhcp_key_secret:
+foreman_proxy::dhcp_omapi_port: 7911
+foreman_proxy::dns: false
+foreman_proxy::dns_listen_on: https
+foreman_proxy::dns_managed: true
+foreman_proxy::dns_provider: nsupdate
+foreman_proxy::dns_interface: eth0
+foreman_proxy::dns_zone: red.lan
+foreman_proxy::dns_reverse:
+foreman_proxy::dns_server: 127.0.0.1
+foreman_proxy::dns_ttl: 86400
+foreman_proxy::dns_tsig_keytab: /etc/foreman-proxy/dns.keytab
+foreman_proxy::dns_tsig_principal: foremanproxy/%{::fqdn}@NICK.LAN
+foreman_proxy::dns_forwarders: []
+foreman_proxy::libvirt_network: default
+foreman_proxy::libvirt_connection: qemu:///system
+foreman_proxy::bmc: false
+foreman_proxy::bmc_listen_on: https
+foreman_proxy::bmc_default_provider: ipmitool
+foreman_proxy::realm: false
+foreman_proxy::realm_split_config_files: true
+foreman_proxy::realm_listen_on: https
+foreman_proxy::realm_provider: freeipa
+foreman_proxy::realm_keytab: /etc/foreman-proxy/freeipa.keytab
+foreman_proxy::realm_principal: realm-proxy@EXAMPLE.COM
+foreman_proxy::freeipa_config: /etc/ipa/default.conf
+foreman_proxy::freeipa_remove_dns: true
+foreman_proxy::keyfile: /etc/rndc.key
+foreman_proxy::register_in_foreman: true
+foreman_proxy::foreman_base_url: https://%{::fqdn}
+foreman_proxy::registered_name: "%{::fqdn}"
+foreman_proxy::registered_proxy_url:
+foreman_proxy::oauth_effective_user: admin
+foreman_proxy::oauth_consumer_key: PU5Lg2ua7XUQ2SvVVXMwSLzrauYLjQEc
+foreman_proxy::oauth_consumer_secret: qxsXYEq99MQAmTUpg6m43JSCpwd2p7Jy
+foreman_proxy::puppet_use_cache:
+puppet::version: present
+puppet::user: puppet
+puppet::group: puppet
+puppet::dir: /etc/puppetlabs/puppet
+puppet::codedir: /etc/puppetlabs/code
+puppet::vardir: /opt/puppetlabs/puppet/cache
+puppet::logdir: /var/log/puppetlabs/puppet
+puppet::rundir: /var/run/puppetlabs
+puppet::ssldir: /etc/puppetlabs/puppet/ssl
+puppet::sharedir: /opt/puppetlabs/puppet
+puppet::manage_packages: true
+puppet::dir_owner: root
+puppet::dir_group:
+puppet::package_provider:
+puppet::package_source:
+puppet::port: 8140
+puppet::listen: false
+puppet::listen_to: []
+puppet::pluginsync: true
+puppet::splay: false
+puppet::splaylimit: '1800'
+puppet::autosign: /etc/puppetlabs/puppet/autosign.conf
+puppet::autosign_entries: []
+puppet::autosign_mode: '0664'
+puppet::autosign_content:
+puppet::runinterval: 1800
+puppet::usecacheonfailure: true
+puppet::runmode: service
+puppet::unavailable_runmodes: []
+puppet::cron_cmd:
+puppet::systemd_cmd:
+puppet::agent_noop: false
+puppet::show_diff: false
+puppet::module_repository:
+puppet::configtimeout:
+puppet::ca_server:
+puppet::ca_port:
+puppet::ca_crl_filepath:
+puppet::prerun_command:
+puppet::postrun_command:
+puppet::dns_alt_names: []
+puppet::use_srv_records: false
+puppet::srv_domain: red.lan
+puppet::pluginsource: puppet:///plugins
+puppet::pluginfactsource: puppet:///pluginfacts
+puppet::additional_settings: {}
+puppet::agent_additional_settings: {}
+puppet::agent_restart_command: /usr/bin/systemctl reload-or-restart puppet
+puppet::classfile: $statedir/classes.txt
+puppet::hiera_config: $confdir/hiera.yaml
+puppet::main_template: puppet/puppet.conf.erb
+puppet::agent_template: puppet/agent/puppet.conf.erb
+puppet::auth_template: puppet/auth.conf.erb
+puppet::allow_any_crl_auth: false
+puppet::auth_allowed:
+- $1
+puppet::client_package:
+- puppet-agent
+puppet::agent: true
+puppet::remove_lock: true
+puppet::client_certname: "%{::fqdn}"
+puppet::puppetmaster:
+puppet::systemd_unit_name: puppet-run
+puppet::service_name: puppet
+puppet::syslogfacility:
+puppet::environment: production
+puppet::server: true
+puppet::server_admin_api_whitelist:
+- localhost
+- "%{::fqdn}"
+puppet::server_user: puppet
+puppet::server_group: puppet
+puppet::server_dir: /etc/puppetlabs/puppet
+puppet::server_ip: 0.0.0.0
+puppet::server_port: 8140
+puppet::server_ca: true
+puppet::server_ca_crl_sync: false
+puppet::server_crl_enable:
+puppet::server_ca_auth_required: true
+puppet::server_ca_client_whitelist:
+- localhost
+- "%{::fqdn}"
+puppet::server_http: false
+puppet::server_http_port: 8139
+puppet::server_http_allow: []
+puppet::server_reports: foreman
+puppet::server_implementation: puppetserver
+puppet::server_passenger: true
+puppet::server_puppetserver_dir: /etc/puppetlabs/puppetserver
+puppet::server_puppetserver_vardir: /opt/puppetlabs/server/data/puppetserver
+puppet::server_puppetserver_rundir: /var/run/puppetlabs/puppetserver
+puppet::server_puppetserver_logdir: /var/log/puppetlabs/puppetserver
+puppet::server_puppetserver_version: 2.7.0
+puppet::server_service_fallback: true
+puppet::server_passenger_min_instances: 2
+puppet::server_passenger_pre_start: true
+puppet::server_passenger_ruby:
+puppet::server_httpd_service: httpd
+puppet::server_external_nodes: /etc/puppetlabs/puppet/node.rb
+puppet::server_template: puppet/server/puppet.conf.erb
+puppet::server_main_template: puppet/server/puppet.conf.main.erb
+puppet::server_cipher_suites:
+- TLS_RSA_WITH_AES_256_CBC_SHA256
+- TLS_RSA_WITH_AES_256_CBC_SHA
+- TLS_RSA_WITH_AES_128_CBC_SHA256
+- TLS_RSA_WITH_AES_128_CBC_SHA
+puppet::server_config_version:
+puppet::server_connect_timeout: 120000
+puppet::server_git_repo: false
+puppet::server_dynamic_environments: false
+puppet::server_directory_environments: true
+puppet::server_default_manifest: false
+puppet::server_default_manifest_path: /etc/puppet/manifests/default_manifest.pp
+puppet::server_default_manifest_content: ''
+puppet::server_enable_ruby_profiler: false
+puppet::server_environments:
+- production
+puppet::server_environments_owner: puppet
+puppet::server_environments_group:
+puppet::server_environments_mode: '0755'
+puppet::server_envs_dir: /etc/puppetlabs/code/environments
+puppet::server_envs_target:
+puppet::server_common_modules_path:
+- /etc/puppetlabs/code/modules
+- /opt/puppetlabs/puppet/modules
+puppet::server_git_repo_mode: '0755'
+puppet::server_git_repo_path: /opt/puppetlabs/puppet/cache/puppet.git
+puppet::server_git_repo_group: puppet
+puppet::server_git_repo_user: puppet
+puppet::server_git_branch_map: {}
+puppet::server_idle_timeout: 1200000
+puppet::server_post_hook_content: puppet/server/post-receive.erb
+puppet::server_post_hook_name: post-receive
+puppet::server_storeconfigs_backend:
+puppet::server_app_root: /etc/puppetlabs/puppet/rack
+puppet::server_ruby_load_paths:
+- /opt/puppetlabs/puppet/lib/ruby/vendor_ruby
+- /etc/puppetlabs/code/environments/production/modules/gms/lib
+puppet::server_ssl_dir: /etc/puppetlabs/puppet/ssl
+puppet::server_ssl_dir_manage: true
+puppet::server_ssl_key_manage: true
+puppet::server_ssl_protocols:
+- TLSv1.2
+puppet::server_ssl_chain_filepath: /etc/puppetlabs/puppet/ssl/ca/ca_crt.pem
+puppet::server_package:
+puppet::server_version:
+puppet::server_certname: "%{::fqdn}"
+puppet::server_enc_api: v2
+puppet::server_report_api: v2
+puppet::server_request_timeout: 60
+puppet::server_ca_proxy:
+puppet::server_strict_variables: false
+puppet::server_additional_settings:
+  trusted_server_facts: true
+puppet::server_rack_arguments: []
+puppet::server_foreman: true
+puppet::server_foreman_url: https://%{::fqdn}
+puppet::server_foreman_ssl_ca:
+puppet::server_foreman_ssl_cert:
+puppet::server_foreman_ssl_key:
+puppet::server_foreman_facts: true
+puppet::server_puppet_basedir: /opt/puppetlabs/puppet/lib/ruby/vendor_ruby/puppet
+puppet::server_puppetdb_host:
+puppet::server_puppetdb_port: 8081
+puppet::server_puppetdb_swf: false
+puppet::server_parser: current
+puppet::server_environment_timeout:
+puppet::server_jvm_java_bin: /usr/bin/java
+puppet::server_jvm_config: /etc/sysconfig/puppetserver
+puppet::server_jvm_min_heap_size: 2G
+puppet::server_jvm_max_heap_size: 2G
+puppet::server_jvm_extra_args: -XX:MaxPermSize=256m
+puppet::server_jruby_gem_home: /opt/puppetlabs/server/data/puppetserver/jruby-gems
+puppet::server_max_active_instances: 2
+puppet::server_max_requests_per_instance: 0
+puppet::server_use_legacy_auth_conf: false
+puppet::server_check_for_updates: true
+puppet::server_environment_class_cache_enabled: false
+puppet::server_allow_header_cert_info: false
+foreman::compute::ec2::version: installed
+
