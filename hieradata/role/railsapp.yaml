@@ -1,0 +1,112 @@
+---
+rvm::key_server: hkp://keys.gnupg.net:80
+
+host_railsapp::default_rails_environments:
+  - production
+
+# host_railsapp settings
+# host_railsapp module settings: https://github.com/LarkIT/puppet-host_railsapp/blob/master/manifests/params.pp
+# *** NOTE: Application settings are now in "hieradata-secure"
+# *** with updated passwords, and hostnames.
+host_railsapp::applications: railsapp
+host_railsapp::main_ruby_version: ruby-2.4.0
+host_railsapp::passenger_version: 5.0.30
+host_railsapp::default_rails_version: 5.0.1
+host_railsapp::nginx::passenger::poolidletime: 0
+host_railsapp::nginx::passenger::spawnmethod: direct
+host_railsapp::default_ssl_cert: letsencrypt
+host_railsapp::default_vhost_options:
+  serveraliases:
+    - staging.reddotstorage.com
+  custom_fragment: |
+    ShibCompatValidUser Off
+    <Location /Shibboleth.sso>
+      AuthType None
+      SetHandler shib
+      Require all granted
+    </Location>
+    <Location /shibboleth-sp>
+      AuthType None
+      Require all granted
+    </Location>
+    <Location /users/auth/shibboleth>
+      AuthType shibboleth
+      ShibRequestSetting requireSession 1
+      require shib-session
+    </Location>
+
+host_railsapp::webserver: apache
+host_railsapp::default_app_hiera_ssh_keys: sshkeys::commercekitchen
+host_railsapp::default_domain_name: staging.reddotstorage.com
+
+host_railsapp::default_database_hostname: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com
+# These should be reset when we get eyaml in place
+host_railsapp::default_database_config:
+  staging: # NOTE THIS IS NOT PROVISIONED
+    database: stagedb
+    username: dbadmin
+    password: 'YourPwdShouldBeLongAndSecure!'
+    adapter: postgresql
+    pool: 5
+    timeout: 5000
+
+host_railsapp::global_ssh_keys:
+  Tommy McNeely (LarkIT):
+      key: 'AAAAB3NzaC1yc2EAAAABIwAAAQEA3jG/iV1rPcTu/F5Scap6lngB67hCLJhVS4fhfSz/IBBR0bmd2jhskGOtpWOyFd5wcQiacLFNpV6fMng0bjaajnm2DlIIZKwbZFkFWw/TXmSIR5R0FD7B6vWt+vpHMi652T4ce7nj4sGZaDvA2QIHyqoYT7SeFOQaTBjRQ8iKnBq3O4RCb/AA1+GAR7mERznWPNsVUyWfe5Dr8jj04MnbDfCGdy6oE6ktIALnc6PkYPd8s+uzd7YBmTpOEI3xQwnz92qwJ3sUyHVjjDd/i8baeaievVkSMqKatN0fpFw9ksuHJPY3iJr2hxqx9TgbstM+Lac9qVHcTZVrcMOI5iskCQ==' # tommy@lark-it.com
+  Eric Hainer:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCZZh5goG8z8DZ5EzsoH7GcjvUMrJ8ZNbWwaCjucSpgCD4fpi3xyukH2oIfEDD5dksLUqFivUPISSjpAhqLb7gUCdSHXfFjy5LKdPNr4s08Hl2DA164C16D8ftrsBskc6zzRzNgYqm5nZphqKSsn8fXvLGnxDFvmy5rNp9oJ2339D5cJ/isdJiy3Im23dPh5a6QwsvQeOXw8f/33yy5MUamYJMAW/hmaI09lb26615VMKhRj70gdfZNXxXjM7Lt59bw5f/MUCcHLWhinFbuq5FbqWvSxBunt3j4OcGkxk1F8FjaB2euU6i78/NUGgmjOxPsZjsU4XmBhLlnVn778xcj' # eric@commercekitchen.com
+  Eric Hainer (personal):
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJaG6gbPFj9Fu/gotsQbiu6hM+Jm3C9wgQ0a+dvtiaG7GXhICt2VSGuvms/IgkmqYOB2nBGr8bv1MqMu5JJclN9a3d6FsZIkdrOfkTQt3ivO/jSflzqjTDcZXaaHDhCx93UXSgspGEIdPydBwyZ9uS3g0WsgP9mxxr/Rygk6iocpAhkUNjRF5+LKORwHSyG/R4kDffIcjFAa/XH2G0qfryMwLUmjyalH1RswpH6C6fEV6E49APLtTk6oV7V8jB5yu1GyzwrXa2xHzD80EZlHxN9aEjj6y1dDgN0kByvYEoY2gW/D4xL5p+NbWloqBdvu/6q8z47zUAtxMI4NlfOp7D' # Eric.Hainer@gmail.com
+  Alex Kirsch:
+    key: 'AAAAB3NzaC1yc2EAAAABIwAAAgEAqjcKB58nbrLDVxPHoEpQLC7cs6rqLjsyfxKpOMMhHvUPoeOJbvVm8RdK4OzbK83pzc1LjZAUjuAw3/F12Epi7O8Y7nDVhcGw8gJ4VYNm76xZo3Pd/moJhR5lxukN/0mAm3POsyeWbdwPuR+E7tGWiLPHlERxroYaC15dYj3sP7az7sgmo2aCDfIOONv3Y1pD8rL7h/JKZP5JoKRey0AC+KBnkfbHRsYDeLzO1wZzoL/VIxtEbnlUCxJnS3OSrNatILBwwHqkdV8T2jab2rIzZdB3icXrO+RBTX4Zqsh33d2cvxE9njiy+iRIadgosvj4wKbf1pFxEuU41MdeWeRBibt9mRiO7MEcQCq4YmcPqazyfpKFD/+ItmDRsHRrY9zZYSuZSEa5jCOVjcpWFcCYzP1N7FaBp74eQWA75FHT/vMnay3ibZe4fPhx9jWoHIuPyGLY2rzAel9Rw0xYZx0kcFax2KyeSi5tB0P9LJmL2IdyxinBzqFbQXMxEGXDWa52kZ5Sxa9go4b0+9bsKcj3711S3Yko3sKlujtMRgjiF1XYrSjcXZ2bIoVvuxVrBU1FFBvheU3EOdtaY0dKV3nNJ42hmPVSm3UpLBWoGy60FHwM4ELtsiKLtoqpL+w7ENx8aR1K5J4BeVS6AkT2P87/o7VjuLkactsxGhvwgiXmom0=' # alexkirsch@Alexs-MacBook-Pro.local
+  Alex Kirsch:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDESF0E+jcaye6cVX52PlPY6TmxeZzj3Mu1V0i7jfLQGo0F5GYSwy1hQTuz9YvyHEHYs40NNBqz/Hf32yDMPJRBLesY1ygRsL5+ADXYaqAv0VO2lxR2eWeoOIbgwS09ghjwaFGEHlWH1rGEakC2OHmjKNGymGUxs5fwqnFd2WHqbG5vNlQQEy3kMAXXpurTCqSCEXmETPhjp1I+X+zWZhwr179mdPgmW3EEhOdRiJ1CHRq2fptXTvG6l0+NJP0/k87L13KvNHmYajCapffekmMjT1RUyO11j1vVBBxcO9TfY5HJSofMPZpVgLRpZqzswGiD+YbuuzEWyp6F4hJqV2E1/6/A0L66LzE4lPzPkgybLn4yyxGWFQKN9jH69qZQxXqnefW6YMWRldqu6hwkM1sWZImddiLS5mKVhXXLSsu6P7RKIaElOVzxaSC7U2VPRs2NWOpfMdJRoCSD0MrkeQa0rxnR0S0TEqWgsRivEGaTpfk1aAdEotVrlgIZQq/1j9AOZoNTHfQahaCFknvp3XnsBGNJnuP+1PaDtJRviyTFN3/9Sp2vgStntr3apHqJUfISgfBsw7ksxXWSCxz16IIDJf6lnCibftNOeXFFH9Ij86kGxGy8vTcjkd7j+b0AvkuQJ2E8Dt4OzWH1Fwk16H0X8vCwtWE9HFCxdXkkxPsh/w==' # ack@commercekitchen.com
+  Alex Brinkman:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDLVDvPzEt8Aqqyey57aOzxkprsOczLPaYzST5pb+crnoKxWDzkMzPxEA8C2bvSUbR+Z+F/c9w8fu9OmSXchzXFkGYVcnpR0Pqg9HOKbw62Oq4plGEG4i5ysI68rxNcxpzKJE63oZQ7uABXqxG3KpGK89Rr4fBxDXUt0PM27wz3TTqJOOCEvV5JNDAdidtGWccKMUH+pOXdosBu26C0RfXXF16USkm+oVMfHb93K8BBckgqOMV1tryl/6bjG5CohmZmRWW/FWk6gzdKa+UHHjwkSS4xPsIuAc2PnxG8mIU32uwKuDSUfbsA7MjaOreprrLk7AfHl/WUJY5ZXRwvBE3D' # abrink@commercekitchen.com
+  Tom Reis:
+    key:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDpyGHQ1GMwaS2ZCWLhHUSGaUsct3JkLK9QLSo03JlvmqzmCXO4Os25bvyZ9tuZhvEqgpNYpUlwwWcr+NJfTbA8yAaGbNtoI0817D79QYfIgsUt482fgHUvVjg07aHQp079VH71enlk22veg+M5Lh9+Sr1lFB76mOs8BIKHJv8pCAYy+Sd1/3mF68Wuo/HHZ7zXGxvSuPyD1Z9dvIFxtcj1VkB0fjDm8FWs5CqxUg7udNIYUnIJ+kpzup4BAr38mshedBDVReivqMCazfNMMC8FI4jHfri3WTViyulqeznF+rgvDaKSUPmO7+TasqTyMUTVCfI6qE7B+7nrliV6fRzh' # tomreis@Thomass-MBP-2.commercekitchen.com
+
+
+# Self Signed "localhost" cert for testing
+host_railsapp::default_ssl_cert: |
+  -----BEGIN CERTIFICATE-----
+  MIIGfTCCBWWgAwIBAgIRAKfzsaZshO8evmRSDtFQmfcwDQYJKoZIhvcNAQELBQAw
+  gZAxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
+  BgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMTYwNAYD
+  VQQDEy1DT01PRE8gUlNBIERvbWFpbiBWYWxpZGF0aW9uIFNlY3VyZSBTZXJ2ZXIg
+  Q0EwHhcNMTcwNjIyMDAwMDAwWhcNMTgwNjIyMjM1OTU5WjBqMSEwHwYDVQQLExhE
+  b21haW4gQ29udHJvbCBWYWxpZGF0ZWQxHjAcBgNVBAsTFUVzc2VudGlhbFNTTCBX
+  aWxkY2FyZDElMCMGA1UEAwwcKi51dHZpcnR1YWxoZWFsdGhuZXR3b3JrLmNvbTCC
+  AiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALV5An4KkPh51pbbKK6Vjvo4
+  6LKQbN6qVN0fQCcjSnWzTty5c8/4k/t7ZmqtWsyIdm0orLalc7y0VOSwxznhvUu3
+  4rOa14zXgipkob3SUlI3sEDe9R2u1E5obJXFppD8NllA2aFpc/EzertfcJ5nvyDf
+  i6u3QMlUKi2cct0ADNJv92CD6zmVT1dbAR7pPjPydpnrpkcij+wp7N1zL/mj0egI
+  SccPORzF4WjkgrM0G/0T9XaqySmySQjhNXkNpvMtMAcYfRxeuHexy8q3UGtnXi0V
+  rFPQUHL7w3TG+u3y6xNj0YcYkfc9PvPRm4epxPWVjMU8k+/0+WLIF0nsTfbg9Cdu
+  mRmMyI+nr3el0k/n9c4vHjaITS7DIpYl4utscrEL/2Eq9TX8/lsF4TqKX55XTtGU
+  GF5bjeU87FE80bfbzzl3WqEoSqNX6BTVbQDT7Fpt5fM3aarLwe21w80EzsYcOtPB
+  wyD5Kr9536Ze/zk6UeL1vzbgd0CKsOIOSrdd0XuLHZ1ka0aoKrGUwh3N6O18fzof
+  orrReQHnjDVA57XyHsDii1TK1XkYPDDFdGZ92lCI4zZ7NM/Q/EVlEItYReoMzrvY
+  Ld2G7VdR9uSbAcnSb+OKAB6o6gNyFMedBr0dG0mis1v/08yQnMgr7EpzGHXxjN5j
+  QcCl/W++F+uVXdJNPIH9AgMBAAGjggH1MIIB8TAfBgNVHSMEGDAWgBSQr2o6lFoL
+  2JDqElZz30O0Oija5zAdBgNVHQ4EFgQU/Z9Q01RXABFMroT2iRFGepyEwecwDgYD
+  VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG
+  CCsGAQUFBwMCME8GA1UdIARIMEYwOgYLKwYBBAGyMQECAgcwKzApBggrBgEFBQcC
+  ARYdaHR0cHM6Ly9zZWN1cmUuY29tb2RvLmNvbS9DUFMwCAYGZ4EMAQIBMFQGA1Ud
+  HwRNMEswSaBHoEWGQ2h0dHA6Ly9jcmwuY29tb2RvY2EuY29tL0NPTU9ET1JTQURv
+  bWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5jcmwwgYUGCCsGAQUFBwEBBHkw
+  dzBPBggrBgEFBQcwAoZDaHR0cDovL2NydC5jb21vZG9jYS5jb20vQ09NT0RPUlNB
+  RG9tYWluVmFsaWRhdGlvblNlY3VyZVNlcnZlckNBLmNydDAkBggrBgEFBQcwAYYY
+  aHR0cDovL29jc3AuY29tb2RvY2EuY29tMEMGA1UdEQQ8MDqCHCoudXR2aXJ0dWFs
+  aGVhbHRobmV0d29yay5jb22CGnV0dmlydHVhbGhlYWx0aG5ldHdvcmsuY29tMA0G
+  CSqGSIb3DQEBCwUAA4IBAQCDiK77EqT9I3OgoebZGy1KW6avlfOo1aS68TxdQd4+
+  PPSvZg+9Jxs2TIx6m4Axj+erKatmjx+/Ka4OxqaJDOM8teNRjiCYiCLALIdItDQ0
+  TdXrjQg6ElllQyPMFJoNcDOJGuBCJCAPqeqIFbEJ5BsPfoQcgLEBURgbQ05rHN2W
+  c9dUBsbmKfhgEkEyDWwrjau94I2pfHZLhGi4MXt2Gf+DIeaigwDJ94y6yxy4W9lR
+  ZEUj7dvBG8JWgV9Y6i/NmOCQr4CgUJbNJau4E6RKmLGroIDwDfxmIdBc+Qrq9w2o
+  U6LKhkoPDHOhyFTBozE1V62owl35ZGTZgwmswQP3kZFo
+  -----END CERTIFICATE-----
+
+apache::mod::passenger::manage_repo: false
+apache::mod::ssl::ssl_cipher: 'ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5'
+
