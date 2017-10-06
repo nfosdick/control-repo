@@ -18,22 +18,22 @@ host_railsapp::default_ssl_cert: letsencrypt
 host_railsapp::default_vhost_options:
   serveraliases:
     - staging.reddotstorage.com
-  custom_fragment: |
-    ShibCompatValidUser Off
-    <Location /Shibboleth.sso>
-      AuthType None
-      SetHandler shib
-      Require all granted
-    </Location>
-    <Location /shibboleth-sp>
-      AuthType None
-      Require all granted
-    </Location>
-    <Location /users/auth/shibboleth>
-      AuthType shibboleth
-      ShibRequestSetting requireSession 1
-      require shib-session
-    </Location>
+#  custom_fragment: |
+#    ShibCompatValidUser Off
+#    <Location /Shibboleth.sso>
+#      AuthType None
+#      SetHandler shib
+#      Require all granted
+#    </Location>
+#    <Location /shibboleth-sp>
+#      AuthType None
+#      Require all granted
+#    </Location>
+#    <Location /users/auth/shibboleth>
+#      AuthType shibboleth
+#      ShibRequestSetting requireSession 1
+#      require shib-session
+#    </Location>
 
 host_railsapp::webserver: apache
 host_railsapp::default_app_hiera_ssh_keys: sshkeys::commercekitchen
