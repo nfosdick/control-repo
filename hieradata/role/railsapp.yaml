@@ -9,7 +9,7 @@ host_railsapp::default_rails_environments:
 # *** NOTE: Application settings are now in "hieradata-secure"
 # *** with updated passwords, and hostnames.
 host_railsapp::applications: railsapp
-host_railsapp::main_ruby_version: ruby-2.4.1
+host_railsapp::main_ruby_version: ruby-2.4.2
 host_railsapp::passenger_version: 5.0.30
 host_railsapp::default_rails_version: 5.1.1
 host_railsapp::nginx::passenger::poolidletime: 0
