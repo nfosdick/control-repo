@@ -31,6 +31,7 @@ host_railsapp::default_database_config:
     username: dbadmin
     password: 'YourPwdShouldBeLongAndSecure!'
     adapter: postgresql
+    host: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com
     pool: 5
     timeout: 5000
 
