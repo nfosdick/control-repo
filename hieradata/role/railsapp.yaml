@@ -112,7 +112,7 @@ host_railsapp::default_ssl_key: |
   dWho7e3c2pqag3lQzTFULdY=
   -----END PRIVATE KEY-----
 
-staging:
+host_railsapp::default_secrets:
   test:
     secret_key_base: >
       ENC[PKCS7,MIIB+wYJKoZIhvcNAQcDoIIB7DCCAegCAQAxggEhMIIBHQIBADAFMAACAQEw
