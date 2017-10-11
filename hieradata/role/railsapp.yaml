@@ -22,7 +22,7 @@ host_railsapp::webserver: apache
 host_railsapp::default_app_hiera_ssh_keys: sshkeys::commercekitchen
 host_railsapp::default_domain_name: staging.reddotstorage.com
 
-host_railsapp::default_database_hostname: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com\
+host_railsapp::default_database_hostname: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com
 profile::database::type: postgresql
 # These should be reset when we get eyaml in place
 host_railsapp::default_database_config:
