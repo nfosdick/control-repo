@@ -126,7 +126,7 @@ host_railsapp::default_secrets:
       As8r+ICBkEHVINNqyxhM3Hx4isXrCG5haxk5bBubvtQGLO+KksZ6679NC3T/
       m8FnEPWEe/TNLbE1FS5FLK/xdL1cNInik8XyIqfJ67cxitNgafb3kR23/aCq
       /cmr7mnCmOciIMeKd8nkK0nnYTXmMIw8ghTIbAI2biLuaBxJAW9QjeyK1Y63
-      qEXPAWUqDV7gJuFb9czfww==]  
+      qEXPAWUqDV7gJuFb9czfww==]
   staging:
     secret_key_base: >
       ENC[PKCS7,MIIB+wYJKoZIhvcNAQcDoIIB7DCCAegCAQAxggEhMIIBHQIBADAFMAACAQEw
