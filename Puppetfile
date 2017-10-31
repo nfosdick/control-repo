@@ -153,3 +153,7 @@ mod 'profile',
 mod 'host_railsapp',
     :git => 'https://github.com/nfosdick/host_railsapp.git',
     :ref => 'master'
+
+mod 'repos',
+    :git => 'https://github.com/nfosdick/repos.git',
+    :ref => 'master'
