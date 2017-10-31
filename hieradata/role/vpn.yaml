@@ -1,8 +1,8 @@
 ---
 openvpn_as::package_version: present
 openvpn_as::host_name: red-vpn-01.reddotstorage.com
-#openvpn_as::vpn_daemon_0_client_network: 172.27.40.0
-openvpn_as::vpn_daemon_0_client_network: 172.20.40.0
+openvpn_as::vpn_daemon_0_client_network: 172.27.40.0
+#openvpn_as::vpn_daemon_0_client_network: 172.20.40.0
 openvpn_as::vpn_server_routing_private_network_0: 172.20.0.0/16
 openvpn_as::vpn_server_google_auth_enable: true
 openvpn_as::vpn_client_routing_reroute_dns: true
