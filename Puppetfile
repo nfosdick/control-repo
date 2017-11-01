@@ -41,6 +41,7 @@ mod 'thias-sysctl', '1.0.6'
 mod 'thias/fooacl', '1.0.1'
 mod 'evenup/redis', '1.3.1'
 mod 'echoes/monit', '0.4.0'
+mod 'luxflux/openvpn', '4.0.1'
 
 # Added for host_railsapp
 mod 'puppet/letsencrypt', '1.1.0'
