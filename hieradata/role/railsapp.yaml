@@ -36,7 +36,7 @@ host_railsapp::default_database_config:
     pool: 5
     timeout: 5000
   production:
-    database: stagedb
+    database: proddb
     username: dbadmin
     password: >
       ENC[PKCS7,MIIBmQYJKoZIhvcNAQcDoIIBijCCAYYCAQAxggEhMIIBHQIBADAFMAACAQEw
