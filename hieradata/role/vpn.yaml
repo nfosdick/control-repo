@@ -6,6 +6,7 @@ openvpn_as::vpn_daemon_0_client_network: 172.27.240.0
 openvpn_as::vpn_server_routing_private_network_0: 172.20.0.0/16
 openvpn_as::vpn_server_google_auth_enable: true
 openvpn_as::vpn_client_routing_reroute_dns: true
+firewall::purge: false
 #Split Tunneling
 openvpn_as::vpn_client_routing_reroute_gw: false
 openvpn_as::admin_users:
