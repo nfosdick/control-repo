@@ -143,7 +143,7 @@ mod 'shibboleth',
     :ref => 'testshib' # no release yet
 
 mod 'role',
-    :git => 'https://github.com/nfosdick/role.git',
+    :git => 'https://github.com/LarkIT/role.git',
     :ref => 'master'
 
 mod 'profile',
