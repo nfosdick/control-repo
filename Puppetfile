@@ -151,9 +151,9 @@ mod 'profile',
     :ref => 'master'
 
 mod 'host_railsapp',
-    :git => 'https://github.com/nfosdick/host_railsapp.git',
+    :git => 'https://github.com/LarkIT/host_railsapp.git',
     :ref => 'master'
 
 mod 'repos',
-    :git => 'https://github.com/nfosdick/repos.git',
+    :git => 'https://github.com/LarkIT/repos.git',
     :ref => 'master'
