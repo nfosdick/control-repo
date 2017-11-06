@@ -147,7 +147,7 @@ mod 'role',
     :ref => 'master'
 
 mod 'profile',
-    :git => 'https://github.com/nfosdick/profile.git',
+    :git => 'https://github.com/LarkIT/profile.git',
     :ref => 'master'
 
 mod 'host_railsapp',
