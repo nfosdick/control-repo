@@ -12,43 +12,43 @@ rvm::key_server: hkp://keys.gnupg.net:80
 #host_railsapp::nginx::passenger::poolidletime: 0
 #host_railsapp::nginx::passenger::spawnmethod: direct
 #host_railsapp::default_ssl_cert: letsencrypt
-host_railsapp::default_vhost_options:
-  serveraliases:
-    - staging.reddotstorage.com
+#host_railsapp::default_vhost_options:
+#  serveraliases:
+#    - staging.reddotstorage.com
 host_railsapp::webserver: apache
 host_railsapp::default_app_hiera_ssh_keys: sshkeys::commercekitchen
-host_railsapp::default_domain_name: staging.reddotstorage.com
+#host_railsapp::default_domain_name: staging.reddotstorage.com
 
-host_railsapp::default_database_hostname: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com
+#host_railsapp::default_database_hostname: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com
 profile::database::type: postgresql
 # These should be reset when we get eyaml in place
-host_railsapp::default_database_config:
-  staging:
-    database: stagedb
-    username: dbadmin
-    password: 'YourPwdShouldBeLongAndSecure!'
-    adapter: postgresql
-    host: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com
-    pool: 5
-    timeout: 5000
-  production:
-    database: proddb
-    username: dbadmin
-    password: >
-      ENC[PKCS7,MIIBmQYJKoZIhvcNAQcDoIIBijCCAYYCAQAxggEhMIIBHQIBADAFMAACAQEw
-      DQYJKoZIhvcNAQEBBQAEggEAR/4zF1DSCrVvPdIlQ62uYoebSJnELLT1Cd1o
-      OeMKgj5hwAQTE1xwNjhcQrz/txO964vmUqfKg088JRUZfWdLmX14o3djIGYU
-      aRQGYa8sUHgQI5QnRZaGR3vbErg0bdjvH26ufT4dE6Xo4avZA2gnevz3yXo2
-      +WGWV0wWJRs73oDXyNKw/UgtinSH6MkCtsKn27K3SNUJJY0r2hl+mTleDktE
-      71e0RtkUDG6rEJ6ypaTtI3VCRt9WAa/IKypzGEPzw+Vp5fz3/Iw0IrblK27B
-      FpLwk3/+WXKRHDfJA8U8MAaO6dTDtbFJ6q3Tr9d2+c+GMzPfFq1XAQMLGJxy
-      QkxZdzBcBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBDwdJb6gm/l8uvkplqU
-      +Zw7gDC6uKzBpEDsO48Ql4eY3QGTbf448vE3r4TWTVNNWmUBhrpeqG4tfjei
-      /vFb2DETXu8=]
-    adapter: postgresql
-    host: 'prod.clxtbeltidcx.us-west-2.rds.amazonaws.com'
-    pool: 5
-    timeout: 5000
+#host_railsapp::default_database_config:
+#  staging:
+#    database: stagedb
+#    username: dbadmin
+#    password: 'YourPwdShouldBeLongAndSecure!'
+#    adapter: postgresql
+#    host: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com
+#    pool: 5
+#    timeout: 5000
+#  production:
+#    database: proddb
+#    username: dbadmin
+#    password: >
+#      ENC[PKCS7,MIIBmQYJKoZIhvcNAQcDoIIBijCCAYYCAQAxggEhMIIBHQIBADAFMAACAQEw
+#      DQYJKoZIhvcNAQEBBQAEggEAR/4zF1DSCrVvPdIlQ62uYoebSJnELLT1Cd1o
+#      OeMKgj5hwAQTE1xwNjhcQrz/txO964vmUqfKg088JRUZfWdLmX14o3djIGYU
+#      aRQGYa8sUHgQI5QnRZaGR3vbErg0bdjvH26ufT4dE6Xo4avZA2gnevz3yXo2
+#      +WGWV0wWJRs73oDXyNKw/UgtinSH6MkCtsKn27K3SNUJJY0r2hl+mTleDktE
+#      71e0RtkUDG6rEJ6ypaTtI3VCRt9WAa/IKypzGEPzw+Vp5fz3/Iw0IrblK27B
+#      FpLwk3/+WXKRHDfJA8U8MAaO6dTDtbFJ6q3Tr9d2+c+GMzPfFq1XAQMLGJxy
+#      QkxZdzBcBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBDwdJb6gm/l8uvkplqU
+#      +Zw7gDC6uKzBpEDsO48Ql4eY3QGTbf448vE3r4TWTVNNWmUBhrpeqG4tfjei
+#      /vFb2DETXu8=]
+#    adapter: postgresql
+#    host: 'prod.clxtbeltidcx.us-west-2.rds.amazonaws.com'
+#    pool: 5
+#    timeout: 5000
 
 host_railsapp::global_ssh_keys:
   Tommy McNeely (LarkIT):
