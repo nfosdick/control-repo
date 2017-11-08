@@ -1,9 +1,5 @@
 ---
-#rvm::key_server: hkp://keys.gnupg.net:80
-
-#host_railsapp::default_rails_environments:
-#  - staging
-#  - production
+rvm::key_server: hkp://keys.gnupg.net:80
 
 # host_railsapp settings
 # host_railsapp module settings: https://github.com/LarkIT/puppet-host_railsapp/blob/master/manifests/params.pp
