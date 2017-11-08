@@ -13,6 +13,7 @@ mod 'theforeman/tftp',          '2.0.0'
 # Top-level modules
 mod 'theforeman/foreman',       '7.2.0'
 mod 'theforeman/foreman_proxy', '5.1.0'
+mod 'sensu/sensu',              '2.0.0'
 mod 'theforeman/puppet',        '7.1.1'
 ### END Foreman 1.15/
 
