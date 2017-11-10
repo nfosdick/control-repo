@@ -158,3 +158,7 @@ mod 'host_railsapp',
 mod 'repos',
     :git => 'https://github.com/LarkIT/repos.git',
     :ref => 'master'
+
+mod 'fusion',
+    :git => 'https://github.com/LarkIT/fusion.git',
+    :ref => 'master'
