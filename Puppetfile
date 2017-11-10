@@ -28,6 +28,10 @@ mod 'puppetlabs-firewall', '1.8.2'
 mod 'puppetlabs-inifile', '1.6.0'
 mod 'puppetlabs-stdlib', '4.16.0'
 mod 'puppetlabs-xinetd', '1.5.0' # NOT LATEST - 2.0.0 giving us errors
+mod 'puppetlabs/java', '2.1.1'
+mod 'puppetlabs/java_ks', '1.6.0'
+
+
 
 # Additional Foreman (Puppet) Needs
 mod 'puppet-hiera', '3.0.0'
