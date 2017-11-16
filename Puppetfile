@@ -135,10 +135,6 @@ mod 'openvpn_as',
   :git => 'https://github.com/LarkIT/puppet-openvpn_as.git',
   :ref => 'a202231'
 
-#mod 'host_railsapp',
-#    :git => 'git@mbi-gitlab-01.utmb.lan:/puppet/host_railsapp.git',
-#    :ref => 'mbi'
-
 mod 'selinux',
    :git => 'https://github.com/LarkIT/puppet-selinux.git',
    :ref => 'larkit'
@@ -155,9 +151,13 @@ mod 'profile',
     :git => 'https://github.com/LarkIT/profile.git',
     :ref => 'master'
 
+#mod 'host_railsapp',
+#    :git => 'https://github.com/LarkIT/host_railsapp.git',
+#    :ref => 'master'
+
 mod 'host_railsapp',
-    :git => 'https://github.com/LarkIT/host_railsapp.git',
-    :ref => 'master'
+    :git => 'git@github.com:LarkIT/puppet-host_railsapp.git',
+    :ref => 'v0.11.1'
 
 mod 'repos',
     :git => 'https://github.com/LarkIT/repos.git',
