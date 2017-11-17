@@ -3,7 +3,7 @@ lvm::manage_pkg: true
 lvm::volume_groups:
   webvg:
     physical_volumes:
-      - /dev/sdx
+      - /dev/xvdf
     logical_volumes:
       weblv:
         mountpath: /web
