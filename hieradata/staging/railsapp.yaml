@@ -1,9 +1,9 @@
 ---
 host_railsapp::default_rails_environments: [ 'staging' ]
-host_railsapp::default_vhost_options:
-  serveraliases:
-    - staging.reddotstorage.com
-    - staging.aws.reddotstorage.com
+#host_railsapp::default_vhost_options:
+#  serveraliases:
+#    - staging.reddotstorage.com
+#    - staging.aws.reddotstorage.com
 host_railsapp::default_domain_name: staging.reddotstorage.com
 
 host_railsapp::default_database_hostname: stage.clxtbeltidcx.us-west-2.rds.amazonaws.com
