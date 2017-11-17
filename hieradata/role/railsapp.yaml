@@ -1,4 +1,13 @@
 ---
+lvm::manage_pkg: true
+lvm::volume_groups:
+  webvg:
+    physical_volumes:
+      - /dev/sdx
+    logical_volumes:
+      weblv:
+        mountpath: /web
+
 rvm::key_server: hkp://keys.gnupg.net:80
 
 host_railsapp::default_app_hiera_ssh_keys: sshkeys::commercekitchen
