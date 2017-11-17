@@ -1,5 +1,5 @@
 ---
-host_railsapp::default_rails_environments: 'staging'
+host_railsapp::default_rails_environments: [ 'staging' ]
 host_railsapp::default_vhost_options:
   serveraliases:
     - staging.reddotstorage.com
