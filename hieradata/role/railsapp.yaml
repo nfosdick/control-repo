@@ -1,4 +1,5 @@
 ---
+host_railsapp::default_rails_environments: ['staging']
 lvm::manage_pkg: true
 lvm::volume_groups:
   webvg:
