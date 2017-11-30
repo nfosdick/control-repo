@@ -17,16 +17,7 @@ puppetdb::manage_firewall: false
 profile::foreman::git_webhook_config:
   'git_post_receive_hook':
     webhook_url: "http://puppet:puppet@%{::fqdn}:8088/payload"
-    token: >
-      ENC[PKCS7,MIIBiQYJKoZIhvcNAQcDoIIBejCCAXYCAQAxggEhMIIBHQIBADAFMAACAQEw
-      DQYJKoZIhvcNAQEBBQAEggEAIcxe1Q9rARHizMpGXaYeQrgPS3U81msZkFqc
-      EpymOHA8LVs1DuhUwc8pLIrwT4mgXDjDcKbc2FeggGXIUZPHZJ9xfQG9ihj8
-      zyOpt1VHsy/qxQoStjV4C0CVle6ZeBhIkklvSSagbTdHm7HGFGKW2ZXqCAMu
-      B45NT6T8ZRM/AQxNvNON1rCp9TatmUNTQhG7PaURb/tVtpXKS4/+IKpMFUhK
-      5SMJinZ4QVtIiu/czB4xPdwMgL0lmfanG96NN1of1aDosALTvX5B+aFVywll
-      vM/CjwjpVgDyBeDYsry64wzCBEN+TyQ7o+DTgSjLTKU5bjFyY3m0OvDi8umh
-      0o2u1zBMBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBAyQeHPZnV1OJez0f8t
-      mBySgCA4FtRuKB37tI9zFPxWa8R1PBg2UxRT7uP2S10a7TsOTw==]
+    token: '123'
     project_name: 'puppet/control-repo'
     server_url: 'https://red-gitlab-01.red.lan/'
     disable_ssl_verify: true
