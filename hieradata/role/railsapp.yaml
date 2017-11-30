@@ -100,6 +100,30 @@ host_railsapp::default_ssl_key: |
 
 host_railsapp::default_secrets:
   test:
-    secret_key_base: '123'
+    secret_key_base: >
+      ENC[PKCS7,MIIB+wYJKoZIhvcNAQcDoIIB7DCCAegCAQAxggEhMIIBHQIBADAFMAACAQEw
+      DQYJKoZIhvcNAQEBBQAEggEAHw4rK5v4naimypUMrh29B4+JOqhgzplqmWiL
+      K1Ikwf9WiL7b/kuVITAFd0lJCU3RXzVf5leuXJOM/4DzOyq9wU1Ihxu6h1df
+      F1ohF0nMrf4zvSyCwW7HM3rCO2GhcnZiBZELd7bzEt/0TVJb0q0r7vDGkHX5
+      kNL8JpK2dbnZNysE8wBMEUkWOjdXHmhaRNlGJQWQ7ZH9VNiYkrYHcjT13OO5
+      w9tQDggFi4TTZE+t1cuSh8zy6qZu6+2kmG8QYG/n633OS37AWGcOVrOWeKz2
+      qi1AND4Q1QuwMbp+M36j2WdslfP90gYBDujYxEdbE8nIh+PdKq3Z+uIGcBcb
+      s3zalDCBvQYJKoZIhvcNAQcBMB0GCWCGSAFlAwQBKgQQH7abJKaRHZp0PVKy
+      vx4V1oCBkGrMLYL6O27t4cAG3/PdbXTlUHLVzN6wZ2wV72Jwpb2kfZ65z79Y
+      QRXu8MqSL5toPhaYRV9luSWoGFD5x4Bs2rb/4smnIeYFFVR3W8OsF7dGI6yF
+      cpUJ24P3DVsjtl/0c2vf0Ejt5yKyrrfg0upZfr8iVPde0SmFozcHsmSUF4OP
+      cgNIyuIpOgYYqztGI7YXAA==]
   staging:
-    secret_key_base: '124'
+    secret_key_base: >
+      ENC[PKCS7,MIIB+wYJKoZIhvcNAQcDoIIB7DCCAegCAQAxggEhMIIBHQIBADAFMAACAQEw
+      DQYJKoZIhvcNAQEBBQAEggEAHw4rK5v4naimypUMrh29B4+JOqhgzplqmWiL
+      K1Ikwf9WiL7b/kuVITAFd0lJCU3RXzVf5leuXJOM/4DzOyq9wU1Ihxu6h1df
+      F1ohF0nMrf4zvSyCwW7HM3rCO2GhcnZiBZELd7bzEt/0TVJb0q0r7vDGkHX5
+      kNL8JpK2dbnZNysE8wBMEUkWOjdXHmhaRNlGJQWQ7ZH9VNiYkrYHcjT13OO5
+      w9tQDggFi4TTZE+t1cuSh8zy6qZu6+2kmG8QYG/n633OS37AWGcOVrOWeKz2
+      qi1AND4Q1QuwMbp+M36j2WdslfP90gYBDujYxEdbE8nIh+PdKq3Z+uIGcBcb
+      s3zalDCBvQYJKoZIhvcNAQcBMB0GCWCGSAFlAwQBKgQQH7abJKaRHZp0PVKy
+      vx4V1oCBkGrMLYL6O27t4cAG3/PdbXTlUHLVzN6wZ2wV72Jwpb2kfZ65z79Y
+      QRXu8MqSL5toPhaYRV9luSWoGFD5x4Bs2rb/4smnIeYFFVR3W8OsF7dGI6yF
+      cpUJ24P3DVsjtl/0c2vf0Ejt5yKyrrfg0upZfr8iVPde0SmFozcHsmSUF4OP
+      cgNIyuIpOgYYqztGI7YXAA==]
