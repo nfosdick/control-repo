@@ -149,7 +149,7 @@ mod 'role',
 
 mod 'profile',
     :git => 'https://github.com/LarkIT/profile.git',
-    :ref => 'master'
+    :ref => 'rdiai11'
 
 #mod 'host_railsapp',
 #    :git => 'https://github.com/LarkIT/host_railsapp.git',
